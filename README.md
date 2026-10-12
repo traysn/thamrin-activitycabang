@@ -19,4 +19,4 @@
 - Viewer publik: siapa pun yang memiliki link bisa melihat angka agregat. Jika laporan bersifat rahasia, perlu viewer login juga sebelum dipakai.
 - Kolom 'Data Tidak Lengkap' dan 'Duplikat Dibuang' adalah statistik seluruh file yang diupload, bukan khusus rentang tanggal yang dipilih.
 - Library Excel/PDF dan Supabase dimuat dari CDN, jadi butuh internet.
-Test automatic deployment22
+Test automatic deployment33
