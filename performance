@@ -1,0 +1,511 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dashboard Aktivitas AMD | 7 vs 8 Oktober</title><style>
+:root{--navy:#142a4b;--blue:#2c70db;--cyan:#18a4a4;--red:#c93d53;--green:#178260;--border:#dfe6f0;--bg:#f4f7fc}*{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px/1.45 'Segoe UI',Arial,sans-serif;color:#22314a}.wrap{max-width:1450px;margin:auto;padding:28px 30px 60px}header{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:22px}h1{font-size:26px;margin:0;color:var(--navy)}.muted{color:#70809a}.eyebrow{font-size:11px;letter-spacing:2px;font-weight:800;color:#5579a8}.pill{background:#e6eefb;color:#295ba1;border-radius:40px;padding:9px 14px;font-weight:700}.filters{display:flex;gap:14px;flex-wrap:wrap;align-items:end;background:white;padding:16px;border:1px solid var(--border);border-radius:14px;margin-bottom:18px}.filter{display:grid;gap:5px;min-width:180px;flex:1}.filter label{font-size:12px;color:#68768d;font-weight:700}select,input{border:1px solid #cdd8e7;border-radius:9px;padding:10px;background:#fff;font:inherit;width:100%}.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-bottom:18px}.kpi,.panel{background:#fff;border:1px solid var(--border);border-radius:15px;box-shadow:0 4px 16px #233e6710}.kpi{padding:19px 22px}.kpi h3{font-size:13px;color:#667792;margin:0 0 9px}.big{font-size:32px;font-weight:800;color:var(--navy)}.comparison{font-size:12px;color:#7c8ba1;margin-top:5px}.delta{display:inline-block;border-radius:7px;padding:4px 7px;font-size:12px;font-weight:800;margin-left:8px}.up{color:var(--green);background:#e6f5ef}.down{color:var(--red);background:#fff0f2}.flat{color:#66748a;background:#edf0f5}.charts{display:grid;grid-template-columns:1fr;gap:15px}.panel{padding:18px 20px}.panel h2{font-size:17px;margin:0;color:#253c61}.panel .sub{color:#77859c;font-size:12px;margin:3px 0 12px}.chart{width:100%;height:245px;display:block}.legend{display:flex;gap:22px;justify-content:center;font-size:12px;color:#6d7c94;margin-top:5px}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}.details{margin-top:20px}.detailshead{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}.detailshead h2{margin:0;font-size:20px}.tablewrap{overflow:auto;border:1px solid var(--border);border-radius:12px}table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:12px}th{background:#eaf0f9;color:#385276;text-align:right;padding:12px 10px;position:sticky;top:0}td{padding:10px;border-bottom:1px solid #eaf0f5;text-align:right}th:nth-child(-n+2),td:nth-child(-n+2){text-align:left}tbody tr:hover{background:#f4f8fe}.negative{color:#bc354a;font-weight:800}.positive{color:#13815c;font-weight:800}.status{border-radius:6px;padding:4px 7px;font-size:11px;font-weight:700;background:#eef2f8}button{background:#1d4f96;color:white;border:0;border-radius:9px;padding:10px 14px;cursor:pointer;font-weight:700}.note{margin-top:10px;color:#7d889a;font-size:12px}@media(max-width:760px){.wrap{padding:16px}.kpis{grid-template-columns:1fr}h1{font-size:21px}.chart{height:220px}.panel{padding:13px}.pill{display:none}}
+.dashboard-actions{display:flex;align-items:center;justify-content:flex-end;flex-shrink:0}.dashboard-actions button{background:#173e79;padding:13px 20px;font-size:14px;box-shadow:0 5px 12px #173e7925}.dashboard-actions button:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}@media(max-width:760px){header{flex-wrap:wrap}.dashboard-actions{width:100%}.dashboard-actions button{width:100%}}@media print{ @page{size:A4 landscape;margin:10mm}body{background:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.wrap{max-width:none!important;padding:0!important}#period-panel,.filters,#upload,#process,#export,#export-pdf,.note{display:none!important}.panel,.kpi{box-shadow:none!important;break-inside:avoid}.charts{display:block!important}.charts>.panel{margin-bottom:10px;page-break-inside:avoid}.chart{height:135px!important}.details{break-before:page}.tablewrap{overflow:visible!important}table{font-size:8px!important}th,td{padding:5px 3px!important}thead{display:table-header-group}} 
+/* Tabel sederhana: satu indikator per kolom */
+.simple-guide{display:flex;gap:9px 18px;flex-wrap:wrap;align-items:center;padding:11px 14px;background:#f1f6fd;border:1px solid #e0eaf7;border-radius:10px;margin:12px 0;font-size:12px;color:#50627d}
+.guide-down{color:#bd3449}.guide-up{color:#117956}
+.simple-table{overflow-x:auto}.simple-table table{table-layout:fixed;min-width:880px;white-space:normal;font-size:13px}
+.simple-table th{position:static;text-align:center;padding:14px 12px;font-size:13px;border-bottom:2px solid #d9e4f1}
+.simple-table th:first-child,.simple-table th:last-child{text-align:left}.simple-table th:first-child{width:23%}.simple-table th:nth-child(2),.simple-table th:nth-child(3),.simple-table th:nth-child(4){width:19%}.simple-table th:last-child{width:20%}
+.simple-table th small{font-size:10px;font-weight:500;color:#6c7d96}.simple-table td{padding:15px 12px;vertical-align:middle;text-align:center}
+.simple-table tbody tr:nth-child(even){background:#f8fafd}.simple-table tbody tr:hover{background:#edf5ff}
+.branch-col{text-align:left!important}.branch-col strong{display:block;font-size:13px;color:#1d3558;margin-top:5px;overflow-wrap:anywhere}.branch-amd{display:inline-block;padding:3px 8px;border-radius:5px;background:#e9f0fb;color:#355b90;font-weight:750;font-size:10px;letter-spacing:.4px}
+.metric-values{display:flex;align-items:center;justify-content:center;gap:10px;font-size:16px;color:#60718c;white-space:nowrap}.metric-values strong{color:#152e50;font-size:18px}.metric-arrow{color:#91a0b5}
+.metric-change{font-size:11px;font-weight:750;margin-top:5px;white-space:nowrap}.metric-change.negative{color:#c2354c}.metric-change.positive{color:#16805e}.metric-change.neutral{color:#708099}
+.summary-col{text-align:left!important}.simple-status{display:inline-block;padding:6px 9px;border-radius:7px;font-weight:800;font-size:11px}.simple-status.alert{background:#ffebef;color:#b72c44}.simple-status.watch{background:#fff2dd;color:#995b0b}.simple-status.good{background:#e3f6ec;color:#147653}.simple-status.steady{background:#edf1f6;color:#64748b}.summary-text{font-size:11px;color:#677891;margin-top:7px}
+@media(max-width:760px){.simple-guide{font-size:11px}.simple-table table{min-width:800px}}
+@media print{.simple-table table{min-width:0!important;table-layout:fixed!important;font-size:9px!important}.simple-table td{padding:7px 5px!important}.simple-table th{padding:8px 5px!important}.metric-values{font-size:11px!important;gap:3px!important}.metric-values strong{font-size:12px!important}.metric-change,.summary-text,.simple-status{font-size:8px!important}.branch-col strong{font-size:9px!important}.simple-guide{font-size:9px!important}}
+
+/* UI refinement: clearer workflow, calmer surfaces, readable controls */
+:root{--navy:#172f55;--blue:#2563c7;--cyan:#0d9488;--border:#e0e8f3;--bg:#f3f6fb}
+body{background:linear-gradient(180deg,#edf3fc 0,#f6f8fc 360px,#f5f7fb 100%);color:#243653}
+.wrap{max-width:1480px;padding:30px 28px 72px}
+header{padding:22px 26px;border-radius:20px;background:linear-gradient(115deg,#15345f,#265e9e);color:white;box-shadow:0 12px 28px #15345f24;margin-bottom:20px}
+header h1{color:white;font-size:27px;letter-spacing:-.6px}
+header .eyebrow,header .muted{color:#d4e6ff}header .pill{background:#ffffff20;color:white;border:1px solid #ffffff30}
+.panel,.kpi,.filters{border-color:#e2eaf5;box-shadow:0 5px 24px #1b3a6410}
+.panel{border-radius:18px;padding:23px 25px}
+.panel h2,.detailshead h2{color:#19375e;letter-spacing:-.2px}
+.filters{border-radius:15px;padding:18px 20px;gap:16px}
+.filter{min-width:165px;gap:7px}.filter label{font-size:12px;color:#526783}
+select,input{height:43px;border:1px solid #cfdbea;border-radius:11px;background:#fff;color:#263d5e;padding:9px 12px;transition:border-color .15s,box-shadow .15s}
+select:focus,input:focus{outline:none;border-color:#4287df;box-shadow:0 0 0 3px #4287df20}
+button{min-height:42px;border-radius:11px;background:#245fae;box-shadow:0 3px 8px #245fae1c;transition:background .15s,transform .15s}
+button:hover:not(:disabled){background:#164b91;transform:translateY(-1px)}button:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.kpis{gap:16px;margin:20px 0}.kpi{border-radius:18px;padding:23px 25px;position:relative;overflow:hidden}
+.kpi:before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:#3b7ed2}.kpi:nth-child(2):before{background:#0f9e96}.kpi:nth-child(3):before{background:#8b69cc}
+.kpi h3{font-size:13px;color:#5b7190}.big{font-size:37px;letter-spacing:-1px}.comparison{line-height:1.7}
+.delta{margin-left:10px;border-radius:20px;padding:5px 10px}
+.charts{gap:18px}.charts>.panel{padding:24px 26px}.charts .chart{height:280px}.charts .sub{margin:5px 0 15px}.legend{margin-top:12px;gap:28px}
+.details{margin-top:22px}.detailshead{gap:18px}.tablewrap{border-color:#e1eaf5;border-radius:13px}
+.simple-table table{min-width:950px}.simple-table thead th{background:#eaf2fd;color:#284d7b;padding:17px 15px}.simple-table tbody td{padding:15px 14px;border-bottom:1px solid #edf1f7}
+.simple-table tbody tr:nth-child(even){background:#fafcff}.simple-table tbody tr:hover{background:#eef6ff}
+.simple-guide{background:#f2f7ff;border-color:#e1ebfa;padding:13px 16px}
+.note{line-height:1.7}
+#upload-status{padding:10px 12px;background:#eef6ff;border-radius:9px;color:#446a98}
+#period-info{padding:10px 12px;background:#f4f7fc;border-radius:9px;color:#536b8a}
+#export-pdf{background:#137f75!important}#export-pdf:hover:not(:disabled){background:#086b62!important}
+@media(max-width:800px){.wrap{padding:14px 12px 45px}header{padding:22px 18px}header h1{font-size:22px}.panel{padding:17px}.charts>.panel{padding:17px}.charts .chart{height:230px}.filters{padding:14px}.filter{min-width:145px}.big{font-size:31px}}
+@media print{header{background:#fff!important;color:#172f55!important;box-shadow:none!important;border:1px solid #e0e8f3}header h1{color:#172f55!important}header .muted,header .eyebrow{color:#526783!important}.panel,.kpi{box-shadow:none!important}.charts .chart{height:135px!important}button{display:none!important}}
+.detail-export-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.detail-export-actions button{min-height:42px;white-space:nowrap}
+@media(max-width:760px){.detail-export-actions{width:100%;justify-content:stretch}.detail-export-actions button{flex:1}}
+
+/* Pilihan tingkat ringkasan */
+.view-switch{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0 16px;padding:10px;background:#f2f7ff;border:1px solid #e1eaf7;border-radius:13px}
+.view-switch .view-label{font-weight:800;color:#29486f;margin-right:9px;font-size:12px}
+.view-switch label{cursor:pointer;display:flex;align-items:center;gap:8px;padding:9px 15px;border-radius:9px;border:1px solid #d8e4f4;background:white;font-weight:700;color:#516682}
+.view-switch label:has(input:checked){background:#245fae;color:white;border-color:#245fae}
+.view-switch input{width:15px;height:15px;accent-color:#fff;cursor:pointer}
+.amd-focus{background:#edf6ff;border:1px solid #d6e9ff;border-radius:11px;padding:13px 16px;margin-bottom:12px;color:#294b77;font-size:13px}
+
+.date-explainer{padding:13px 16px;background:#edf5ff;border:1px solid #d8e6fb;border-radius:10px;color:#24446b;margin:12px 0 14px;font-size:13px;line-height:1.7}
+.date-before{font-weight:700;color:#265db1}.date-after{font-weight:700;color:#087f78}
+.simple-table tbody tr.dashboard-total,.simple-table tbody tr.dashboard-total:nth-child(even){background:#dceafb!important;border-top:3px solid #285eaa}
+.simple-table tbody tr.dashboard-total td{padding:18px 14px!important;font-weight:800;color:#16375d}
+.simple-table tbody tr.dashboard-total .metric-change.negative{color:#b92f49}
+.simple-table tbody tr.dashboard-total .metric-change.positive{color:#147d5d}
+.simple-table table{min-width:1080px}.simple-table th:first-child{width:10%}.simple-table th:nth-child(2){width:24%}.simple-table th:nth-child(3),.simple-table th:nth-child(4),.simple-table th:nth-child(5){width:16%}.simple-table th:nth-child(6){width:18%}.simple-table th:nth-child(2){text-align:left}.simple-table td:nth-child(2){text-align:left}.simple-table th:nth-child(6){text-align:left}#trend-filter{border-color:#9abce7;background:#f2f7ff;font-weight:700} 
+/* FIX: enam kolom detail cabang, lima kolom ringkasan AMD; semua metrik terpusat */
+.details .simple-table table{width:100%;min-width:1080px;table-layout:fixed;border-collapse:collapse}
+.details .simple-table th,.details .simple-table td{box-sizing:border-box;vertical-align:middle;padding:15px 10px}
+.details .simple-table th:nth-child(n),.details .simple-table td:nth-child(n){text-align:center}
+.details .simple-table th:first-child,.details .simple-table td:first-child,
+.details .simple-table th:last-child,.details .simple-table td:last-child{text-align:left}
+.details .simple-table table:has(thead th:nth-child(6)) th:nth-child(1){width:11%}
+.details .simple-table table:has(thead th:nth-child(6)) th:nth-child(2){width:19%;text-align:left}
+.details .simple-table table:has(thead th:nth-child(6)) th:nth-child(3),
+.details .simple-table table:has(thead th:nth-child(6)) th:nth-child(4),
+.details .simple-table table:has(thead th:nth-child(6)) th:nth-child(5){width:16%}
+.details .simple-table table:has(thead th:nth-child(6)) th:nth-child(6){width:22%}
+.details .simple-table table:not(:has(thead th:nth-child(6))) th:nth-child(1){width:18%}
+.details .simple-table table:not(:has(thead th:nth-child(6))) th:nth-child(2),
+.details .simple-table table:not(:has(thead th:nth-child(6))) th:nth-child(3),
+.details .simple-table table:not(:has(thead th:nth-child(6))) th:nth-child(4){width:19%}
+.details .simple-table table:not(:has(thead th:nth-child(6))) th:nth-child(5){width:25%}
+.details .simple-table .metric-col{text-align:center!important}
+.details .simple-table .metric-values{display:grid;grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);align-items:center;justify-content:center;gap:2px;width:100%;max-width:180px;margin:0 auto;font-variant-numeric:tabular-nums}
+.details .simple-table .metric-values>span:first-child{text-align:right}
+.details .simple-table .metric-values .metric-arrow{text-align:center}
+.details .simple-table .metric-values strong{text-align:left}
+.details .simple-table .metric-change{text-align:center;white-space:normal;line-height:1.45;min-height:18px}
+.details .simple-table th small{display:block;line-height:1.4;margin-top:4px}
+.details .simple-table .summary-col{white-space:normal;overflow-wrap:anywhere}
+.details .simple-table .dashboard-total td{vertical-align:middle}
+@media print{.details .simple-table table{min-width:0!important}.details .simple-table .metric-values{grid-template-columns:minmax(0,1fr) 10px minmax(0,1fr)}}
+
+/* Baris TOTAL: semua isi rata tengah, termasuk kolom kesimpulan. */
+.details .simple-table tbody tr.dashboard-total td,
+.details .simple-table tbody tr.dashboard-total td:first-child,
+.details .simple-table tbody tr.dashboard-total td:last-child,
+.details .simple-table tbody tr.dashboard-total .summary-col,
+.details .simple-table tbody tr.dashboard-total .branch-col {
+  text-align:center !important;
+  vertical-align:middle !important;
+}
+.details .simple-table tbody tr.dashboard-total td:last-child strong {display:block;text-align:center;line-height:1.5}
+
+/* Seluruh kolom Kesimpulan rata tengah: judul, badge, keterangan, TOTAL. */
+.details .simple-table thead th:last-child,
+.details .simple-table tbody td:last-child,
+.details .simple-table tbody td.summary-col,
+.details .simple-table tbody td:last-child .summary-text,
+.details .simple-table tbody td:last-child strong {
+  text-align:center !important;
+}
+.details .simple-table tbody td:last-child .simple-status {display:inline-block;}
+</style><style>body>main>section.panel:has(#upload){display:none!important}.unified-nav{max-width:1480px;margin:15px auto 0;padding:12px 20px;background:#e7f2ff;border-radius:12px;border:1px solid #c4dffa;font-weight:750}.unified-nav a{color:#174e8b;text-decoration:none}</style></head><body><nav class="unified-nav"><a href="index.html">← Breakdown Aktivitas Harian</a> &nbsp; | &nbsp; Dashboard Performa AMD, Leads & Prospek · Data otomatis dari Admin</nav><main class="wrap"><header><div><div class="eyebrow">PERFORMANCE MONITORING</div><h1>Dashboard Aktivitas, Leads & Prospek</h1><div class="muted">Belum ada data • Silakan upload file Excel</div></div><div class="pill">MENUNGGU UPLOAD</div></header><section class="panel" style="margin-bottom:18px;background:#fafdff"><div class="detailshead"><div><h2>Upload Data Aktivitas Terbaru</h2><div class="muted">Unggah file .xlsx / .xls, klik Proses File, lalu pilih periode analisis.</div></div><span class="pill" style="display:inline-block">UPLOAD EXCEL</span></div><div class="filters" style="padding:0;border:0;margin:14px 0 0"><div class="filter" style="flex:2;min-width:260px"><label>File rekap aktivitas</label><input id="upload" type="file" accept=".xlsx,.xls" /></div><div class="filter" style="flex:0 0 auto"><button id="process" style="margin-top:17px">Proses File</button></div></div><div id="upload-status" class="note">Belum ada data. Upload Excel untuk memulai. File diproses di browser, tidak dikirim ke server.</div></section><section class="panel" style="margin-bottom:18px" id="period-panel"><div class="detailshead"><div><h2>Pengaturan Periode & Laporan</h2><div class="muted">Harian: tanggal rekap otomatis dibandingkan dengan tanggal kemarin. Rentang: bandingkan tanggal Mulai vs tanggal Sampai (bukan total semua hari di antaranya). Semua periode: bandingkan separuh awal dan separuh akhir tanggal tersedia.</div></div><button id="export-pdf" style="background:#173e79">Download PDF</button></div><div class="filters" style="padding:0;border:0;margin-top:12px"><div class="filter"><label>Mode Periode</label><select id="period-mode"><option value="daily">Harian — Rekap vs Kemarin</option><option value="range">Bandingkan Dua Tanggal</option><option value="all">Semua Periode</option></select></div><div class="filter daily-only"><label>Tanggal Pembanding</label><select id="date1"></select></div><div class="filter daily-only"><label>Tanggal Terbaru</label><select id="date2"></select></div><div class="filter range-only" style="display:none"><label>Tanggal Pembanding</label><input id="range-start" type="date"></div><div class="filter range-only" style="display:none"><label>Tanggal Terbaru</label><input id="range-end" type="date"></div></div><div class="note" id="period-info">Periode perbandingan akan tampil di sini.</div></section><section class="filters"><div class="filter"><label>Filter AMD</label><select id="amd"><option value="">Semua AMD</option></select></div><div class="filter"><label>Filter Cabang</label><select id="cabang"><option value="">Semua Cabang</option></select></div><div class="filter"><label>Urutkan cabang berdasarkan</label><select id="sort"><option value="aktivitas">Penurunan Aktivitas</option><option value="leads">Penurunan Leads</option><option value="prospek">Penurunan Prospek</option></select></div><div class="filter"><label>Status pencapaian</label><select id="trend-filter"><option value="all">Semua Cabang / AMD</option><option value="down">Khusus Turun</option><option value="same">Khusus Tetap</option><option value="up">Khusus Naik</option></select></div><div class="filter"><label>Cari nama cabang</label><input id="search" placeholder="Ketik nama cabang..."></div></section><section class="kpis" id="kpis"></section><section class="charts"><div class="panel"><h2>Trend Aktivitas per AMD</h2><div class="sub">Grafik muncul setelah upload Excel • Jumlah aktivitas unik</div><svg id="chart-aktivitas" class="chart"></svg><div class="legend"><span><i class="dot" style="background:#2c70db"></i>Periode A</span><span><i class="dot" style="background:#18a4a4"></i>Periode B</span></div></div><div class="panel"><h2>Trend Leads per AMD</h2><div class="sub">Grafik muncul setelah upload Excel • Total leads aktual</div><svg id="chart-leads" class="chart"></svg><div class="legend"><span><i class="dot" style="background:#2c70db"></i>Periode A</span><span><i class="dot" style="background:#18a4a4"></i>Periode B</span></div></div><div class="panel"><h2>Trend Prospek per AMD</h2><div class="sub">Grafik muncul setelah upload Excel • Total prospek aktual</div><svg id="chart-prospek" class="chart"></svg><div class="legend"><span><i class="dot" style="background:#2c70db"></i>Periode A</span><span><i class="dot" style="background:#18a4a4"></i>Periode B</span></div></div></section><section class="panel details"><div class="detailshead"><div><h2>Detail Performa per Cabang</h2><div class="muted" id="count"></div></div><button id="export">Export CSV Detail</button></div><div class="view-switch" role="radiogroup" aria-label="Tingkat detail laporan"><span class="view-label">Tampilkan laporan:</span><label><input type="radio" name="view-level" value="cabang" checked> Detail Cabang</label><label><input type="radio" name="view-level" value="amd"> Ringkasan AMD Saja</label></div><div id="amd-focus" class="amd-focus" style="display:none"></div><div class="simple-guide"><span><b>← Sebelumnya → Sekarang</b> = hasil dua periode</span><span class="guide-down">▼ Merah = turun</span><span class="guide-up">▲ Hijau = naik</span><span>— Abu-abu = tetap</span></div><div class="tablewrap simple-table"><table><thead><tr><th>AMD / Cabang</th><th>Aktivitas<br><small>Sebelum → Sekarang</small></th><th>Leads<br><small>Sebelum → Sekarang</small></th><th>Prospek<br><small>Sebelum → Sekarang</small></th><th>Kesimpulan</th></tr></thead><tbody id="tbody"></tbody></table></div><p class="note">Aktivitas dihitung hanya jika Tanggal Mulai Aktivitas, Kecamatan, Cabang, dan Nomor Aktivitas terisi. Nomor aktivitas yang sama pada cabang dan tanggal yang sama dihitung sekali; Leads & Prospek dari baris duplikat juga tidak dijumlahkan ulang. Periode mengikuti tanggal yang dipilih dari file upload. Persentase perubahan dengan basis 0 ditandai “—”.</p></section></main><script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js"></script><script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script><script>
+let DATA=[];
+const $=id=>document.getElementById(id), fmt=n=>Number(n).toLocaleString('id-ID'), esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const MASTER={"TB ARGAMAKMUR": "HELMI", "TB BABAT TOMAN": "ROBERT", "TB BATURAJA": "DARIEL", "TB BATURAJA KOTA": "DARIEL", "TB BELITANG": "DARIEL", "TB CURUP": "HELMI", "TB IPUH": "YUDHA", "TB LAHAT": "ARMAN", "TB LINGGAU": "ARMAN", "TB MANNA": "SAMUEL", "TB MARTAPURA": "DARIEL", "TB MUARA DUA": "DARIEL", "TB NATADIRJA": "YUDHA", "TB PAGAR ALAM": "ARMAN", "TB PANGKALAN BALAI": "ROBERT", "TB PANORAMA": "YUDHA", "TB PENDOPO": "NURLIS", "TB PRABUMULIH": "NURLIS", "TB SALAK": "YUDHA", "TB SEKAYU": "ROBERT", "TB SELUMA": "SAMUEL", "TB SENTRAL YAMAHA BENGKULU": "YUDHA", "YPM BATURAJA TIMUR": "DARIEL", "YPM BELITANG 2": "DARIEL", "YPM BUNGA MAS": "ARMAN", "YPM GELUMBANG": "NURLIS", "YPM GUNUNG IBUL": "NURLIS", "YPM KAUR": "SAMUEL", "YPM KEPAHIANG": "HELMI", "YPM KETAHUN": "HELMI", "YPM KM 16": "ROBERT", "YPM LEBONG": "HELMI", "YPM LUBUK PINANG": "YUDHA", "YPM MEGANG SAKTI": "ARMAN", "YPM MERAPI": "ARMAN", "YPM MUARA BANGKAHULU": "YUDHA", "YPM PADANG JAYA": "HELMI", "YPM PENARIK": "YUDHA", "YPM PENURUNAN": "YUDHA", "YPM PONDOK KELAPA": "YUDHA", "YPM PRABUMULIH BARAT": "NURLIS", "YPM PUTRI HIJAU": "HELMI", "YPM RAWA MAKMUR": "YUDHA", "YPM SIMPANG RUKIS": "SAMUEL", "YPM SUNGAI LILIN": "ROBERT", "YPM TALANG KELAPA": "ROBERT", "YPM TELUK SEGARA KAMPUNG BALI": "YUDHA", "TB KAYU AGUNG": "INDRA", "TB TANJUNG ENIM": "INDRA", "TB TUGU MULYO 2": "INDRA", "YPM PASAR KAYU AGUNG": "INDRA", "YPM TALANG JAWA": "INDRA", "TB SAKO": "RIZKI", "YPM BANGAU": "RIZKI", "YPM JAKABARING": "RIZKI", "TB LEMABANG": "RIZKI", "YPM ALANG ALANG LEBAR": "RIZKI", "TB ARIVAI": "RIZKI", "YPM ABUSAMA": "RIZKI", "YPM TALANG JAMBE": "RIZKI", "YPM PLAJU": "RIZKI", "YPM KEBUN BUNGA": "RIZKI", "YPM KALIDONI": "RIZKI", "TB PIM": "ANITA", "YPM DEMANG": "ANITA", "TB BELLMONDO": "ANITA", "YPM WAY HITAM": "ANITA", "YPM KAMBOJA": "ANITA", "TB SENTRAL YAMAHA PALEMBANG": "ANITA", "YPM GANDUS": "ANITA", "YPM BUKIT": "ANITA", "TB YAHONSU": "ANITA", "YPM 26 ILIR": "ANITA", "YPM LINGGAU 2": "ROBERT", "YPM PIM": "ANITA", "YPM PASAR LAMA": "ROBERT", "YPM SUKARAJA": "SAMUEL", "YPM SIMPANG PATAL": "SAMUEL"};let availableDates=[],dateA='',dateB='';
+const norm=x=>String(x??'').trim().toUpperCase().replace(/\s+/g,' ');
+const dateLabel=d=>d==='PERIOD_A'?(window.periodLabels?.[0]||'Periode A'):d==='PERIOD_B'?(window.periodLabels?.[1]||'Periode B'):new Date(d+'T12:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
+function refreshDates(){for(const [id,sel] of [['date1',dateA],['date2',dateB]]){const e=$(id);e.innerHTML='';availableDates.forEach(d=>e.add(new Option(dateLabel(d),d)));e.value=sel;}}
+function refreshAMD(){const old=$('amd').value;$('amd').innerHTML='<option value="">Semua AMD</option>';[...new Set(DATA.map(r=>r.amd))].sort().forEach(a=>$('amd').add(new Option(a,a)));if([...$('amd').options].some(x=>x.value===old))$('amd').value=old;}
+refreshDates();refreshAMD();
+function group(rows,fields){let m=new Map();rows.forEach(r=>{let key=fields.map(f=>r[f]).join('|');if(!m.has(key))m.set(key,{amd:r.amd,cabang:r.cabang,aktivitas:{[dateA]:0,[dateB]:0},leads:{[dateA]:0,[dateB]:0},prospek:{[dateA]:0,[dateB]:0}});let o=m.get(key);for(let metric of ['aktivitas','leads','prospek'])o[metric][r.tanggal]=(o[metric][r.tanggal]||0)+r[metric]});return [...m.values()]}
+const diff=(o,k)=>o[k][dateB]-o[k][dateA],pct=(o,k)=>o[k][dateA]===0?null:100*diff(o,k)/o[k][dateA];
+function change(v){return v>0?'up':v<0?'down':'flat'}
+function delta(v){return (v>0?'+':'')+fmt(v)}
+function chart(svgId,rows,metric){
+ if(rows.length===1){
+  const svg=$(svgId), W=1000,H=245,L=100,R=85,T=25,B=55;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const item=rows[0],v1=Number(item[metric][dateA]||0),v2=Number(item[metric][dateB]||0);
+  const top=Math.max(1,v1,v2)*1.2, y=v=>T+(H-T-B)*(1-v/top),x1=260,x2=740;
+  let parts=[];
+  for(let i=0;i<=4;i++){const v=top*i/4, yy=y(v);parts.push(`<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#e6ecf4"/><text x="${L-12}" y="${yy+4}" text-anchor="end" fill="#8595aa" font-size="12">${fmt(Math.round(v))}</text>`)}
+  parts.push(`<path d="M ${x1} ${y(v1)} L ${x2} ${y(v2)}" stroke="${v2<v1?'#c93d53':v2>v1?'#178260':'#2c70db'}" stroke-width="4" fill="none" stroke-linecap="round"/>`);
+  [[x1,v1,dateLabel(dateA)],[x2,v2,dateLabel(dateB)]].forEach(([x,v,label])=>{
+   parts.push(`<circle cx="${x}" cy="${y(v)}" r="7" fill="#2c70db" stroke="white" stroke-width="2"><title>${esc(item.amd)}: ${esc(label)} = ${fmt(v)}</title></circle>`);
+   parts.push(`<text x="${x}" y="${Math.max(14,y(v)-16)}" text-anchor="middle" font-weight="700" font-size="17" fill="#253c61">${fmt(v)}</text>`);
+   parts.push(`<text x="${x}" y="${H-18}" text-anchor="middle" font-size="13" fill="#64758e">${esc(label)}</text>`);
+  });
+  svg.innerHTML=parts.join('');
+  return;
+ }
+const svg=$(svgId), W=1000,H=245,L=53,R=22,T=19,B=61,ys=[dateA,dateB];svg.setAttribute('viewBox',`0 0 ${W} ${H}`);const max=Math.max(1,...rows.flatMap(r=>ys.map(d=>r[metric][d])))*1.15, y=v=>T+(H-T-B)*(1-v/max),x=i=>L+(W-L-R)*(rows.length<=1?.5:i/(rows.length-1));let out='';for(let j=0;j<=4;j++){let val=max*j/4,yy=y(val);out+=`<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#e6ecf4"/><text x="${L-8}" y="${yy+4}" text-anchor="end" fill="#8a98ab" font-size="11">${fmt(Math.round(val))}</text>`}rows.forEach((r,i)=>{let lab=r.amd.length>15?r.amd.slice(0,14)+'…':r.amd;out+=`<text x="${x(i)}" y="${H-35}" text-anchor="middle" font-size="${rows.length>12?9:11}" fill="#64758e">${esc(lab)}</text>`});for(let [idx,d] of ys.entries()){let col=idx===0?'#2c70db':'#18a4a4';let pts=rows.map((r,i)=>[x(i),y(r[metric][d])]);if(pts.length>1)out+=`<polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;pts.forEach(([xx,yy],i)=>out+=`<circle cx="${xx}" cy="${yy}" r="4.5" fill="${col}" stroke="white" stroke-width="1.5"><title>${esc(rows[i].amd)} | ${dateLabel(d)}: ${fmt(rows[i][metric][d])}</title></circle>`)}svg.innerHTML=out}
+function updateCabangs(){let amd=$('amd').value,old=$('cabang').value,options=[...new Set(DATA.filter(r=>!amd||r.amd===amd).map(r=>r.cabang))].sort();$('cabang').innerHTML='<option value="">Semua Cabang</option>';options.forEach(c=>$('cabang').add(new Option(c,c)));if(options.includes(old))$('cabang').value=old}
+function metricTile(o,k){
+ const prev=o[k][dateA]||0,now=o[k][dateB]||0,d=now-prev,p=prev?Math.abs(d/prev*100).toFixed(1).replace('.',','):null;
+ const cls=d<0?'negative':d>0?'positive':'neutral';
+ const wording=d<0?'▼ Turun '+fmt(Math.abs(d)):d>0?'▲ Naik '+fmt(d):'— Tetap';
+ const percent=d===0?'0%':p===null?'(awal 0)':'('+p+'%)';
+ return `<td class="metric-col"><div class="metric-values"><span>${fmt(prev)}</span><span class="metric-arrow">→</span><strong>${fmt(now)}</strong></div><div class="metric-change ${cls}">${wording} <span>${percent}</span></div></td>`;
+}
+function render(){
+ let a=$('amd').value,c=$('cabang').value,q=$('search').value.trim().toUpperCase(),rows=DATA.filter(r=>(!a||r.amd===a)&&(!c||r.cabang===c)&&(!q||r.cabang.includes(q)));
+ let branch=group(rows,['amd','cabang']),byAMD=group(rows,['amd']).sort((x,y)=>x.amd.localeCompare(y.amd));
+ renderDailyCharts();
+
+ $('kpis').innerHTML=['aktivitas','leads','prospek'].map(k=>{let prev=rows.filter(r=>r.tanggal===dateA).reduce((s,r)=>s+r[k],0),now=rows.filter(r=>r.tanggal===dateB).reduce((s,r)=>s+r[k],0),d=now-prev,p=prev?((d/prev)*100).toFixed(1).replace('.',',')+'%':'—';return `<article class="kpi"><h3>${{aktivitas:'Total Aktivitas',leads:'Total Leads',prospek:'Total Prospek'}[k]}</h3><span class="big">${fmt(now)}</span><span class="delta ${change(d)}">${delta(d)} (${d>0?'+':''}${p})</span><div class="comparison">${dateLabel(dateA)}: ${fmt(prev)} &nbsp; → &nbsp; ${dateLabel(dateB)}: ${fmt(now)}</div></article>`}).join('');
+ let metric=$('sort').value;
+ branch.sort((x,y)=>diff(x,metric)-diff(y,metric)||x.amd.localeCompare(y.amd)||x.cabang.localeCompare(y.cabang));
+ $('count').textContent=`${branch.length} cabang • Penurunan ${metric} terbesar ditampilkan lebih dulu`;
+ $('tbody').innerHTML=branch.map(o=>{
+  let flags=['aktivitas','leads','prospek'].filter(k=>diff(o,k)<0);
+  let level=flags.length>=2?'alert':flags.length===1?'watch':(['aktivitas','leads','prospek'].some(k=>diff(o,k)>0)?'good':'steady');
+  let status=level==='alert'?'Perlu perhatian':level==='watch'?'Ada penurunan':level==='good'?'Meningkat':'Stabil';
+  let explanation=flags.length?flags.map(k=>({aktivitas:'Aktivitas',leads:'Leads',prospek:'Prospek'}[k])).join(' & ')+' turun':'Tidak ada yang turun';
+  return `<tr><td class="branch-col"><span class="branch-amd">${esc(o.amd)}</span><strong>${esc(o.cabang)}</strong></td>${['aktivitas','leads','prospek'].map(k=>metricTile(o,k)).join('')}<td class="summary-col"><span class="simple-status ${level}">${status}</span><div class="summary-text">${explanation}</div></td></tr>`;
+ }).join('');window.exportRows=branch;
+}
+$('amd').onchange=()=>{updateCabangs();render()};['cabang','sort','search'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',render));$('export').onclick=()=>{let head=['AMD','Cabang',...['Aktivitas','Leads','Prospek'].flatMap(k=>[k+' ' +dateLabel(dateA),k+' ' +dateLabel(dateB),'Selisih '+k,'Persen '+k])];let arr=[head,...window.exportRows.map(o=>[o.amd,o.cabang,...['aktivitas','leads','prospek'].flatMap(k=>[o[k][dateA],o[k][dateB],diff(o,k),pct(o,k)===null?'':pct(o,k).toFixed(1)])])];let csv='\ufeff'+arr.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(';')).join('\r\n');let link=document.createElement('a');link.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));link.download='Detail_Performa_Cabang.csv';link.click();URL.revokeObjectURL(link.href)};
+function setPeriod(){dateA=$('date1').value;dateB=$('date2').value;if(dateA===dateB){$('upload-status').textContent='Pilih dua tanggal yang berbeda.';return;}if(dateA>dateB){[dateA,dateB]=[dateB,dateA];refreshDates();}document.querySelector('header .muted').textContent='Perbandingan '+dateLabel(dateA)+' vs '+dateLabel(dateB)+' • Breakdown AMD & Cabang';document.querySelector('header .pill').textContent=dateLabel(dateA)+' → '+dateLabel(dateB);document.querySelectorAll('.legend').forEach(l=>l.innerHTML='<span><i class="dot" style="background:#2c70db"></i>'+dateLabel(dateA)+'</span><span><i class="dot" style="background:#18a4a4"></i>'+dateLabel(dateB)+'</span>');document.querySelectorAll('.charts .sub').forEach(x=>x.textContent='Dua garis: '+dateLabel(dateA)+' dan '+dateLabel(dateB));document.querySelectorAll('thead th').forEach(th=>{if(th.textContent.match(/^(Akt|Lead|Prospek) [78]$/))th.textContent=th.textContent.replace(/ [78]$/,' '+(th.textContent.endsWith('7')?dateLabel(dateA):dateLabel(dateB)))});updateCabangs();render();}
+$('date1').onchange=setPeriod;$('date2').onchange=setPeriod;
+function parseDate(v){if(v instanceof Date&&!isNaN(v))return `${v.getFullYear()}-${String(v.getMonth()+1).padStart(2,'0')}-${String(v.getDate()).padStart(2,'0')}`;if(typeof v==='number'){const p=XLSX.SSF.parse_date_code(v);return p?`${p.y}-${String(p.m).padStart(2,'0')}-${String(p.d).padStart(2,'0')}`:null;}if(!v)return null;const s=String(v).trim();const iso=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);if(iso)return `${iso[1]}-${iso[2].padStart(2,'0')}-${iso[3].padStart(2,'0')}`;const local=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})/);if(local)return `${local[3]}-${local[2].padStart(2,'0')}-${local[1].padStart(2,'0')}`;return null;}
+function number(v){const n=Number(String(v??0).replace(/,/g,''));return Number.isFinite(n)?n:0;}
+function pickHeader(h,terms,fallback){const x=h.findIndex(s=>terms.some(t=>norm(s).includes(t)));return x<0?fallback:x;}
+$('process').onclick=async()=>{const file=$('upload').files[0],status=$('upload-status');if(!file){status.textContent='Pilih file Excel terlebih dahulu.';return;}if(typeof XLSX==='undefined'){status.textContent='Library Excel belum termuat. Pastikan internet aktif saat membuka dashboard.';return;}try{status.textContent='Memproses '+file.name+' ...';const buffer=await file.arrayBuffer(),wb=XLSX.read(buffer,{type:'array',cellDates:true});let sheet=wb.Sheets[wb.SheetNames.find(n=>/data|rekap/i.test(n))||wb.SheetNames[0]],all=XLSX.utils.sheet_to_json(sheet,{header:1,defval:null,raw:true});let head=all[0].map(norm);let cab=pickHeader(head,['CABANG','DEALER'],0),act=pickHeader(head,['NO AKTIVITAS','NO. AKTIVITAS','NOMOR AKTIVITAS'],1),dt=pickHeader(head,['TGL MULAI AKTIVITAS','TANGGAL MULAI AKTIVITAS'],2),kec=pickHeader(head,['KECAMATAN AKTIVITAS','KECAMATAN'],4),lead=pickHeader(head,['LEAD AKTUAL AKTIVITAS','AKTUAL LEAD','LEADS AKTUAL'],15),pros=pickHeader(head,['PROSPEK AKTUAL AKTIVITAS','AKTUAL PROSPEK'],16);if(!head[cab]||!head[act]||!head[dt]||!head[kec]||!head[lead]||!head[pros])throw Error('Kolom wajib tidak ditemukan. Gunakan format Rekap Aktivitas dengan kolom Cabang, No Aktivitas, Tgl Mulai Aktivitas, Lead Aktual Aktivitas, Prospek Aktual Aktivitas.');const agg=new Map();let skippedIncomplete=0,skippedDuplicate=0;for(const r of all.slice(1)){const dealer=norm(r[cab]),d=parseDate(r[dt]),no=norm(r[act]),kecamatan=norm(r[kec]);if(!dealer||!d||!no||!kecamatan){skippedIncomplete++;continue;}const amd=MASTER[dealer]||'BELUM TERPETAKAN',key=[amd,dealer,d].join('|');if(!agg.has(key))agg.set(key,{amd,cabang:dealer,tanggal:d,acts:new Set(),leads:0,prospek:0});const x=agg.get(key);if(x.acts.has(no)){skippedDuplicate++;continue;}x.acts.add(no);x.leads+=number(r[lead]);x.prospek+=number(r[pros]);}const rec=[...agg.values()].map(x=>({amd:x.amd,cabang:x.cabang,tanggal:x.tanggal,aktivitas:x.acts.size,leads:x.leads,prospek:x.prospek}));if(!rec.length)throw Error('Tidak ada data valid: Cabang, Nomor Aktivitas, Tanggal Mulai Aktivitas, dan Kecamatan wajib terisi.');DATA=rec;rawDATA=rec.map(r=>({...r}));window.periodLabels=null;availableDates=[...new Set(rec.map(r=>r.tanggal))].sort();dateB=availableDates.at(-1);dateA=dayAdd(dateB,-1);refreshDates();refreshAMD();$('amd').value='';$('search').value='';$('cabang').value='';setPeriod();if(typeof updatePeriodInputs==='function')updatePeriodInputs();if(typeof applyPeriod==='function')applyPeriod();status.textContent=`Berhasil: ${fmt(all.length-1)} baris dibaca • ${fmt(skippedIncomplete)} baris tidak lengkap (tanggal mulai, kecamatan, cabang atau nomor aktivitas) diabaikan • ${fmt(skippedDuplicate)} aktivitas duplikat diabaikan • ${fmt(rec.reduce((n,r)=>n+r.aktivitas,0))} aktivitas unik valid • ${availableDates.length} tanggal tersedia. ${file.name}`;}catch(e){status.textContent='Gagal memproses: '+e.message;console.error(e);}};
+
+const ORIGINAL_RENDER=render;let rawDATA=DATA,periodCaption='';
+function dayAdd(d,n){let x=new Date(d+'T12:00:00');x.setDate(x.getDate()+n);return x.toISOString().slice(0,10)}
+function dateRange(a,b){return availableDates.filter(d=>d>=a&&d<=b)}
+function periodDates(){let mode=$('period-mode').value;if(mode==='daily'){const latest=$('date2').value;return [[dayAdd(latest,-1)],[latest]];}if(mode==='all'){let dates=availableDates,half=Math.floor(dates.length/2);if(half<1)return [[dates[0]],[dates[0]]];return [dates.slice(0,half),dates.slice(half)];}let start=$('range-start').value,end=$('range-end').value;if(!start||!end||start>end)throw Error('Isi rentang tanggal yang valid.');if(start===end)throw Error('Pilih dua tanggal berbeda untuk perbandingan.');if(!availableDates.includes(start)||!availableDates.includes(end))throw Error('Salah satu tanggal tidak memiliki aktivitas valid. Pilih tanggal yang tersedia dalam file.');return [[start],[end]];}
+function applyPeriod(){try{const [before,after]=periodDates();if(!before.length||!after.length)throw Error('Tidak ada data pada salah satu periode. Upload file dengan tanggal yang sesuai.');
+if($('period-mode').value==='daily' && !availableDates.includes(before[0]))throw Error('Data kemarin ('+dateLabel(before[0])+') tidak tersedia dalam file. Upload data tanggal tersebut agar perbandingan akurat.');const labels=[before.length===1?dateLabel(before[0]):dateLabel(before[0])+' – '+dateLabel(before.at(-1)),after.length===1?dateLabel(after[0]):dateLabel(after[0])+' – '+dateLabel(after.at(-1))];const grouped=new Map();for(const r of rawDATA){let idx=before.includes(r.tanggal)?0:after.includes(r.tanggal)?1:-1;if(idx<0)continue;let key=r.amd+'|'+r.cabang+'|'+idx;if(!grouped.has(key))grouped.set(key,{amd:r.amd,cabang:r.cabang,tanggal:idx===0?'PERIOD_A':'PERIOD_B',aktivitas:0,leads:0,prospek:0});for(const k of ['aktivitas','leads','prospek'])grouped.get(key)[k]+=r[k];}DATA=[...grouped.values()];dateA='PERIOD_A';dateB='PERIOD_B';periodCaption=labels[0]+' vs '+labels[1];document.querySelector('header .muted').textContent='Perbandingan '+periodCaption+' • Breakdown AMD & Cabang';document.querySelector('header .pill').textContent=$('period-mode').selectedOptions[0].text;document.querySelectorAll('.legend').forEach(l=>l.innerHTML='<span><i class="dot" style="background:#2c70db"></i>'+labels[0]+'</span><span><i class="dot" style="background:#18a4a4"></i>'+labels[1]+'</span>');document.querySelectorAll('.charts .sub').forEach(el=>el.textContent='Perbandingan '+periodCaption);$('period-info').textContent='Perbandingan: '+labels[0]+' vs '+labels[1]+' (masing-masing satu hari)';window.periodLabels=labels;updateCabangs();render();document.querySelectorAll('.comparison').forEach(e=>{e.innerHTML=e.innerHTML.replaceAll('Invalid Date',labels[0]);});}catch(e){$('period-info').textContent='Gagal: '+e.message;}}
+const originalDateLabel=dateLabel;
+// dateLabel declared as const, so show labels by adjusting text after rendering.
+const originalRender=render;
+render=function(){if(!DATA.length){showEmpty();return;}originalRender();if(window.periodLabels){document.querySelectorAll('.comparison').forEach(e=>{e.innerHTML=e.innerHTML.replaceAll('Invalid Date',window.periodLabels[0]);let parts=e.innerHTML.split('→');if(parts.length===2){parts[0]=parts[0].replace(/Invalid Date/g,window.periodLabels[0]);parts[1]=parts[1].replace(/Invalid Date/g,window.periodLabels[1]);e.innerHTML=parts.join('→');}});document.querySelectorAll('thead th').forEach(th=>{let m=th.textContent.match(/^(Akt|Lead|Prospek) (7|8|.*)$/);if(m&&/^(Akt|Lead|Prospek) /.test(th.textContent)&&!th.dataset.originalLabel){th.dataset.originalLabel=th.textContent;}if(th.dataset.originalLabel){let name=th.dataset.originalLabel.split(' ')[0];let cols=[...th.parentElement.children].indexOf(th);let side=[2,6,10].includes(cols)?0:[3,7,11].includes(cols)?1:-1;if(side>=0)th.textContent=name+' '+(side===0?'A':'B');}})}};
+function updatePeriodInputs(){
+ const mode=$('period-mode').value;
+ document.querySelectorAll('.range-only').forEach(x=>x.style.display=mode==='range'?'':'none');
+ document.querySelectorAll('.daily-only').forEach(x=>x.style.display=mode==='daily'?'':'none');
+  $('date1').closest('.filter').style.display='none';
+  const latestLabel=$('date2').closest('.filter').querySelector('label');
+  if(latestLabel)latestLabel.textContent='Tanggal Rekap (otomatis vs kemarin)';
+}
+function autoApplyPeriod(){
+ if(!rawDATA.length)return;
+ if($('period-mode').value==='daily'){
+  if(!$('date2').value){$('period-info').textContent='Pilih tanggal rekap.';return;}
+ }
+ applyPeriod();
+}
+$('period-mode').onchange=()=>{updatePeriodInputs();autoApplyPeriod()};
+['date1','date2','range-start','range-end'].forEach(id=>$(id).addEventListener('change',autoApplyPeriod));
+$('export-pdf').onclick=async()=>{
+ if(!rawDATA.length){alert('Upload dan proses file Excel terlebih dahulu.');return;}
+ const btn=$('export-pdf');
+ if(!window.jspdf?.jsPDF){alert('Modul PDF belum termuat. Pastikan internet aktif.');return;}
+ const old=btn.textContent;btn.disabled=true;btn.textContent='Membuat PDF...';
+ try{
+  const doc=new window.jspdf.jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
+  if(typeof doc.autoTable!=='function')throw Error('Modul tabel PDF belum termuat.');
+  const pw=297,ph=210,ml=14,mr=14,usable=pw-ml-mr;
+  const navy=[25,54,94],muted=[96,114,139];
+  const period=document.querySelector('header .muted')?.textContent||'Laporan Performa';
+  const stamp=new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+  const clean=t=>String(t||'').replace(/\s+/g,' ').trim();
+  function title(text,subtitle){doc.setFillColor(...navy);doc.rect(0,0,pw,27,'F');doc.setTextColor(255);doc.setFont('helvetica','bold');doc.setFontSize(16);doc.text(text,ml,13);doc.setFont('helvetica','normal');doc.setFontSize(9);doc.text(doc.splitTextToSize(subtitle,usable).slice(0,1),ml,21);doc.setTextColor(30,45,68);}
+  function footer(){const total=doc.internal.getNumberOfPages();for(let i=1;i<=total;i++){doc.setPage(i);doc.setDrawColor(222,230,241);doc.line(ml,ph-13,pw-mr,ph-13);doc.setTextColor(...muted);doc.setFontSize(8);doc.text('Dashboard AMD & Cabang | '+stamp,ml,ph-8);doc.text('Halaman '+i+' / '+total,pw-mr,ph-8,{align:'right'});}}
+  title('Laporan Performa AMD & Cabang',period);
+  const kpis=[...document.querySelectorAll('#kpis .kpi')];
+  kpis.forEach((el,i)=>{
+    const x=ml+i*(usable+5)/3,w=(usable-10)/3;
+    doc.setFillColor(244,248,253);doc.setDrawColor(222,232,243);doc.roundedRect(x,34,w,29,3,3,'FD');
+    doc.setTextColor(...muted);doc.setFontSize(9);doc.text(clean(el.querySelector('h3')?.textContent),x+5,42);
+    doc.setTextColor(...navy);doc.setFont('helvetica','bold');doc.setFontSize(17);doc.text(clean(el.querySelector('.big')?.textContent),x+5,52);
+    doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...muted);
+    doc.text(doc.splitTextToSize(clean(el.querySelector('.delta')?.textContent),w-10)[0]||'',x+5,59);
+  });
+  // SVG chart diubah satu per satu menjadi gambar agar tidak terpotong oleh page break.
+  async function svgPng(svg){
+    const cp=svg.cloneNode(true);cp.setAttribute('xmlns','http://www.w3.org/2000/svg');
+    cp.setAttribute('width','1200');cp.setAttribute('height','294');
+    const markup=new XMLSerializer().serializeToString(cp);
+    const url=URL.createObjectURL(new Blob([markup],{type:'image/svg+xml;charset=utf-8'}));
+    try{const img=new Image();await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject;img.src=url;});
+      const canvas=document.createElement('canvas');canvas.width=1600;canvas.height=392;
+      const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.drawImage(img,0,0,canvas.width,canvas.height);return canvas.toDataURL('image/png');
+    }finally{URL.revokeObjectURL(url);}
+  }
+  let yy=70;
+  for(const [id,name] of ($('amd').value ? [['chart-aktivitas','Trend Aktivitas per AMD'],['chart-leads','Trend Leads per AMD'],['chart-prospek','Trend Prospek per AMD']] : [])){
+    if(yy+43>ph-18){doc.addPage();yy=19;}
+    doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(...navy);doc.text(name,ml,yy);
+    const svg=$(id);if(svg&&svg.children.length){try{const png=await svgPng(svg);doc.addImage(png,'PNG',ml,yy+2,usable,38);}catch(err){console.warn('Gambar grafik gagal:',err);doc.setFontSize(9);doc.text('Grafik tidak dapat dimuat dalam PDF.',ml,yy+14);}}
+    yy+=46;
+  }
+  doc.addPage();const amdSummary=document.querySelector('input[name="view-level"]:checked')?.value==='amd';title(amdSummary?'Ringkasan Performa per AMD':'Detail Performa per Cabang',period);
+  // Build clean, fixed-width PDF cells from numeric data rather than concatenated HTML text.
+  const amdOnly=document.querySelector('input[name="view-level"]:checked')?.value==='amd';
+  const rowsPDF=(window.exportRows||[]).map(o=>{
+    const cell=k=>{const prev=Number(o[k][dateA]||0),now=Number(o[k][dateB]||0),d=now-prev;
+      const percent=prev? (Math.abs(d)/prev*100).toFixed(1).replace('.',',')+'%':'—';
+      return fmt(prev)+' -> '+fmt(now)+'\n'+(d<0?'Turun '+fmt(-d):d>0?'Naik '+fmt(d):'Tetap')+' ('+percent+')';};
+    const flags=['aktivitas','leads','prospek'].filter(k=>diff(o,k)<0);
+    const status=flags.length>=2?'Perlu perhatian':flags.length===1?'Ada penurunan':(['aktivitas','leads','prospek'].some(k=>diff(o,k)>0)?'Meningkat':'Stabil');
+    return [...(amdOnly?[o.amd]:[o.amd,o.cabang]),cell('aktivitas'),cell('leads'),cell('prospek'),status+(flags.length?'\n'+flags.join(', ')+' turun':'')];
+  });
+  if(rowsPDF.length){
+    const sourceRows=window.exportRows||[];
+    const totals={};
+    for(const k of ['aktivitas','leads','prospek']){
+      totals[k]={[dateA]:sourceRows.reduce((sum,o)=>sum+Number(o[k]?.[dateA]||0),0),
+                 [dateB]:sourceRows.reduce((sum,o)=>sum+Number(o[k]?.[dateB]||0),0)};
+    }
+    const totalCell=k=>{const a=totals[k][dateA],b=totals[k][dateB],d=b-a;
+      const pct=a?(Math.abs(d)/a*100).toFixed(1).replace('.',',')+'%':'—';
+      return fmt(a)+' -> '+fmt(b)+'\n'+(d<0?'Turun '+fmt(-d):d>0?'Naik '+fmt(d):'Tetap')+' ('+pct+')';
+    };
+    rowsPDF.push([...(amdOnly?['TOTAL']:['TOTAL','—']),totalCell('aktivitas'),totalCell('leads'),totalCell('prospek'),'TOTAL KESELURUHAN']);
+    // Ringkasan AMD: padatkan baris secara otomatis supaya seluruh AMD + TOTAL muat dalam satu halaman A4 landscape.
+    const compactAMD=amdOnly && rowsPDF.length<=18;
+    const pdfFont=compactAMD?(rowsPDF.length>13?7.3:8.2):9;
+    const pdfPadding=compactAMD?(rowsPDF.length>13?1.35:2.0):4;
+    doc.autoTable({
+      head:[[...(amdOnly?['AMD']:['AMD','Cabang']),...['Aktivitas','Leads','Prospek'].map(k=>k+'\n'+(window.periodLabels?.[0]||'Sebelum')+' -> '+(window.periodLabels?.[1]||'Sekarang')),'Kesimpulan']],
+      body:rowsPDF,startY:compactAMD?30:33,margin:{left:ml,right:mr,top:18,bottom:compactAMD?12:19},tableWidth:usable,
+      theme:'striped',showHead:'everyPage',rowPageBreak:'avoid',
+      styles:{font:'helvetica',fontSize:pdfFont,cellPadding:pdfPadding,overflow:'linebreak',valign:'middle',textColor:[40,57,82],lineWidth:0.1,lineColor:[230,236,245]},
+      headStyles:{fillColor:navy,textColor:255,fontStyle:'bold',fontSize:compactAMD?8:9},
+      alternateRowStyles:{fillColor:[246,249,253]},
+      columnStyles:amdOnly?{0:{cellWidth:65},1:{cellWidth:47},2:{cellWidth:47},3:{cellWidth:47},4:{cellWidth:63}}:{0:{cellWidth:26},1:{cellWidth:65},2:{cellWidth:41},3:{cellWidth:41},4:{cellWidth:41},5:{cellWidth:55}},
+      didParseCell:data=>{if(data.section!=='body')return;
+        if(data.row.index===rowsPDF.length-1){data.cell.styles.fillColor=[220,234,251];data.cell.styles.fontStyle='bold';}
+        const t=String(data.cell.raw||'');
+        if(t.includes('Turun')||t.includes('Perlu perhatian'))data.cell.styles.textColor=[185,48,68];
+        else if(t.includes('Naik')||t.includes('Meningkat'))data.cell.styles.textColor=[18,128,90];}
+    });
+  }else{doc.setFontSize(11);doc.text('Tidak ada data untuk filter ini.',ml,40);}
+  footer();
+  const mode=$('period-mode').value||'harian';
+  doc.save('Dashboard_AMD_Cabang_'+mode+'_'+new Date().toISOString().slice(0,10)+'.pdf');
+ }catch(e){console.error(e);alert('PDF gagal dibuat: '+e.message);}finally{btn.disabled=false;btn.textContent=old;}
+};
+const oldProcess=$('process').onclick;$('process').onclick=async()=>{
+ const f=$('upload').files[0];if(!f){$('upload-status').textContent='Pilih file Excel terlebih dahulu.';return;}
+ DATA=[];rawDATA=[];availableDates=[];dateA='';dateB='';window.periodLabels=null;showEmpty();
+ await oldProcess();
+ if(!DATA.length){showEmpty();return;}
+ // rawDATA sudah diisi dari baris Excel oleh oldProcess.
+ // JANGAN menggantinya dengan DATA yang sudah berupa PERIOD_A/PERIOD_B.
+ if(!rawDATA.length){$('upload-status').textContent='Gagal: data mentah kosong setelah upload.';showEmpty();return;}
+ $('trend-filter').value='all';
+ $('range-start').value=availableDates[0];$('range-end').value=availableDates.at(-1);
+ $('period-mode').value='daily';updatePeriodInputs();
+ applyPeriod();
+};
+function showEmpty(){
+ $('kpis').innerHTML=['Aktivitas','Leads','Prospek'].map(k=>'<article class=\"kpi\"><h3>Total '+k+'</h3><span class=\"big\">—</span><div class=\"comparison\">Menunggu upload Excel</div></article>').join('');
+ for(const k of ['aktivitas','leads','prospek'])$( 'chart-'+k ).innerHTML='<text x=\"50%\" y=\"50%\" text-anchor=\"middle\" fill=\"#8796aa\" font-size=\"14\">Upload Excel untuk menampilkan grafik</text>';
+ $('tbody').innerHTML='<tr><td colspan=\"15\" style=\"text-align:center;padding:24px;color:#8796aa\">Belum ada data cabang</td></tr>';
+ $('count').textContent='Belum ada data';$('period-info').textContent='Upload Excel dan klik Proses File terlebih dahulu.';
+ $('export-pdf').disabled=true;$('export').disabled=true;
+}
+const oldApplyPeriod=applyPeriod;applyPeriod=function(){if(!rawDATA.length){showEmpty();return;}oldApplyPeriod();$('export-pdf').disabled=false;$('export').disabled=false;};
+// Tombol PDF dan CSV dikelompokkan pada tabel detail cabang.
+const pdfButton=$('export-pdf');
+const csvButton=$('export');
+const detailHeader=document.querySelector('.details .detailshead');
+if(pdfButton && csvButton && detailHeader){
+  const actions=document.createElement('div');
+  actions.className='detail-export-actions';
+  csvButton.parentNode.insertBefore(actions,csvButton);
+  actions.appendChild(csvButton);
+  actions.appendChild(pdfButton);
+  pdfButton.textContent='Download PDF';
+  pdfButton.title='Download laporan PDF sesuai periode dan filter aktif';
+}
+
+// Grafik harian hanya tersedia ketika satu AMD dipilih.
+function renderDailyCharts(){
+ const amd=$('amd').value, section=document.querySelector('.charts');
+ let hint=document.getElementById('chart-amd-hint');
+ if(!hint){hint=document.createElement('div');hint.id='chart-amd-hint';hint.className='panel';hint.style.cssText='text-align:center;padding:28px;color:#536b8a;margin-top:0';section.parentNode.insertBefore(hint,section);}
+ const hasData=rawDATA.length>0;
+ section.style.display=hasData?'grid':'none';hint.style.display=hasData?'none':'block';
+ hint.textContent='Grafik akan tampil setelah file Excel diproses.';
+ if(!hasData)return;
+ if(!amd){
+   const cabang=$('cabang').value, search=$('search').value.trim().toUpperCase();
+   const filtered=DATA.filter(r=>(!cabang||r.cabang===cabang)&&(!search||r.cabang.includes(search)));
+   const byAMD=group(filtered,['amd']).sort((a,b)=>a.amd.localeCompare(b.amd));
+   for(const [metric,title] of [['aktivitas','Aktivitas'],['leads','Leads'],['prospek','Prospek']]){
+     chart('chart-'+metric,byAMD,metric);
+     const panel=$('chart-'+metric).closest('.panel');
+     panel.querySelector('h2').textContent='Trend '+title+' per AMD';
+     panel.querySelector('.sub').textContent='Perbandingan '+periodCaption+' • Sumbu X: AMD • Sumbu Y: jumlah';
+     panel.querySelector('.legend').innerHTML='<span><i class="dot" style="background:#2c70db"></i>'+esc(dateLabel(dateA))+'</span><span><i class="dot" style="background:#18a4a4"></i>'+esc(dateLabel(dateB))+'</span>';
+   }
+   return;
+ }
+ let dates=[];
+ try{const pair=periodDates();dates=[...new Set([...pair[0],...pair[1]])].sort();}catch(e){dates=availableDates.slice();}
+ const cabang=$('cabang').value,search=$('search').value.trim().toUpperCase();
+ const filtered=rawDATA.filter(r=>r.amd===amd&&(!cabang||r.cabang===cabang)&&(!search||r.cabang.includes(search)));
+ const series=dates.map(d=>{const day=filtered.filter(r=>r.tanggal===d);return {date:d,aktivitas:day.reduce((s,r)=>s+r.aktivitas,0),leads:day.reduce((s,r)=>s+r.leads,0),prospek:day.reduce((s,r)=>s+r.prospek,0)};});
+ for(const [metric,title] of [['aktivitas','Aktivitas'],['leads','Leads'],['prospek','Prospek']]){
+  const svg=$('chart-'+metric),W=1000,H=280,L=72,R=36,T=29,B=60;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const vals=series.map(r=>r[metric]),top=Math.max(1,...vals)*1.18;
+  const x=i=>L+(W-L-R)*(series.length===1?.5:i/(series.length-1));
+  const y=v=>T+(H-T-B)*(1-v/top);
+  let out='';
+  for(let i=0;i<=4;i++){const value=top*i/4,yy=y(value);out+=`<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#e5ecf5"/><text x="${L-12}" y="${yy+4}" text-anchor="end" font-size="12" fill="#788aa4">${fmt(Math.round(value))}</text>`;}
+  if(series.length>1)out+=`<polyline points="${series.map((r,i)=>x(i)+','+y(r[metric])).join(' ')}" stroke="#2563c7" stroke-width="3.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>`;
+  const step=Math.max(1,Math.ceil(series.length/12));
+  series.forEach((r,i)=>{const xx=x(i),yy=y(r[metric]);out+=`<circle cx="${xx}" cy="${yy}" r="5" fill="#2563c7" stroke="white" stroke-width="2"><title>${esc(dateLabel(r.date))}: ${fmt(r[metric])} ${title}</title></circle>`;if(i%step===0||i===series.length-1)out+=`<text x="${xx}" y="${H-31}" text-anchor="middle" fill="#64758e" font-size="${series.length>12?10:12}">${esc(new Date(r.date+'T12:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'short'}))}</text>`;if(series.length<=12)out+=`<text x="${xx}" y="${Math.max(15,yy-12)}" text-anchor="middle" font-size="12" font-weight="700" fill="#244a87">${fmt(r[metric])}</text>`;});
+  out+=`<text x="${W/2}" y="${H-6}" text-anchor="middle" font-size="12" fill="#70819a">Tanggal aktivitas</text><text x="14" y="${H/2}" transform="rotate(-90 14 ${H/2})" text-anchor="middle" font-size="12" fill="#70819a">Jumlah ${title}</text>`;
+  svg.innerHTML=out;
+  const panel=svg.closest('.panel');panel.querySelector('h2').textContent='Tren '+title+' Harian — '+amd;panel.querySelector('.sub').textContent=(cabang?cabang+' • ':'')+'Sumbu X: tanggal aktivitas • Sumbu Y: jumlah';
+  panel.querySelector('.legend').innerHTML='<span><i class="dot" style="background:#2563c7"></i>Tren harian '+esc(amd)+'</span>';
+ }
+}
+const originalShowEmpty=showEmpty;
+showEmpty=function(){originalShowEmpty();renderDailyCharts();};
+
+updatePeriodInputs();showEmpty();
+
+// Beralih antara rincian cabang dan total per AMD tanpa mengubah sumber data.
+const detailViewTitle=document.querySelector('.details .detailshead h2');
+const detailViewHeaders=document.querySelector('.details thead');
+const cabangHeaders=detailViewHeaders.innerHTML;
+const priorViewRender=render;
+render=function(){
+ priorViewRender();
+ const mode=document.querySelector('input[name="view-level"]:checked')?.value||'cabang';
+ const guide=document.querySelector('.simple-guide'),focus=$('amd-focus');
+ if(mode==='cabang'){
+  detailViewTitle.textContent='Detail Performa per Cabang';
+  detailViewHeaders.innerHTML=cabangHeaders;
+  guide.style.display='flex';focus.style.display='none';
+  // render asli sudah mengisi tabel cabang.
+  return;
+ }
+ detailViewTitle.textContent='Ringkasan Performa per AMD';
+ guide.style.display='none';focus.style.display='block';
+ const metric=$('sort').value;
+ const filtered=DATA.filter(r=>(!$('amd').value||r.amd===$('amd').value)&&(!$('cabang').value||r.cabang===$('cabang').value)&&(!$('search').value.trim()||r.cabang.includes($('search').value.trim().toUpperCase())));
+ const groups=group(filtered,['amd']).sort((a,b)=>diff(a,metric)-diff(b,metric)||a.amd.localeCompare(b.amd));
+ // group() mengisi cabang dari baris pertama; kosongkan supaya export juga ringkasan AMD.
+ groups.forEach(g=>g.cabang='SEMUA CABANG');
+ const biggest=groups.filter(g=>diff(g,'aktivitas')<0).sort((a,b)=>diff(a,'aktivitas')-diff(b,'aktivitas'));
+ focus.textContent=biggest.length?'Penurunan aktivitas terbesar: '+biggest.slice(0,3).map(g=>g.amd+' (turun '+fmt(-diff(g,'aktivitas'))+' aktivitas)').join(' • '):'Tidak ada AMD yang mengalami penurunan aktivitas pada periode terpilih.';
+ detailViewHeaders.innerHTML='<tr><th>AMD</th><th>Aktivitas<br><small>Sebelum → Sekarang</small></th><th>Leads<br><small>Sebelum → Sekarang</small></th><th>Prospek<br><small>Sebelum → Sekarang</small></th><th>Kesimpulan</th></tr>';
+ $('count').textContent=groups.length+' AMD • Diurutkan dari penurunan '+metric+' terbesar';
+ $('tbody').innerHTML=groups.map(g=>{
+  const flags=['aktivitas','leads','prospek'].filter(k=>diff(g,k)<0);
+  const level=flags.length>=2?'alert':flags.length===1?'watch':(['aktivitas','leads','prospek'].some(k=>diff(g,k)>0)?'good':'steady');
+  const label=level==='alert'?'Perlu perhatian':level==='watch'?'Ada penurunan':level==='good'?'Meningkat':'Stabil';
+  return '<tr><td class="branch-col"><strong>'+esc(g.amd)+'</strong></td>'+['aktivitas','leads','prospek'].map(k=>metricTile(g,k)).join('')+'<td class="summary-col"><span class="simple-status '+level+'">'+label+'</span><div class="summary-text">'+(flags.length?flags.join(', ')+' turun':'Tidak ada indikator turun')+'</div></td></tr>';
+ }).join('')||'<tr><td colspan="5" style="text-align:center;padding:20px">Tidak ada AMD pada filter ini.</td></tr>';
+ window.exportRows=groups;
+};
+document.querySelectorAll('input[name="view-level"]').forEach(r=>r.addEventListener('change',()=>render()));
+// Pertahankan mode yang dipilih saat upload/periode berubah.
+
+// Penjelasan tanggal yang eksplisit dan total di baris paling bawah.
+function currentPeriodNames(){
+ const labels=window.periodLabels||[];
+ return [labels[0]||dateLabel(dateA),labels[1]||dateLabel(dateB)];
+}
+function refreshDetailDatesAndTotal(){
+ const [before,after]=currentPeriodNames();
+ const th=document.querySelectorAll('.details thead th');
+ ['Aktivitas','Leads','Prospek'].forEach((name,i)=>{
+   if(th[i+(document.querySelector('input[name="view-level"]:checked')?.value==='amd'?1:2)])th[i+(document.querySelector('input[name="view-level"]:checked')?.value==='amd'?1:2)].innerHTML=`${name}<br><small>${esc(before)} → ${esc(after)}</small>`;
+ });
+ let guide=document.getElementById('date-explainer');
+ if(!guide){
+   guide=document.createElement('div');guide.id='date-explainer';guide.className='date-explainer';
+   document.querySelector('.details .tablewrap').before(guide);
+ }
+ guide.innerHTML=`<strong>Cara baca angka:</strong> <span class="date-before">${esc(before)} (sebelum)</span> <b>→</b> <span class="date-after">${esc(after)} (sekarang)</span>. Contoh <b>19 → 15</b> artinya 19 aktivitas pada periode sebelumnya dan 15 pada periode terbaru.`;
+ const body=$('tbody');
+ body.querySelectorAll('tr.dashboard-total').forEach(x=>x.remove());
+ const rows=window.exportRows||[];
+ if(!rows.length)return;
+ const sums={};
+ for(const k of ['aktivitas','leads','prospek']){
+   sums[k]={[dateA]:rows.reduce((v,o)=>v+Number(o[k]?.[dateA]||0),0),
+             [dateB]:rows.reduce((v,o)=>v+Number(o[k]?.[dateB]||0),0)};
+ }
+ const flags=['aktivitas','leads','prospek'].filter(k=>diff(sums,k)<0);
+ const total=document.createElement('tr');total.className='dashboard-total';
+ total.innerHTML=`<td class="branch-col"><strong>TOTAL ${document.querySelector('input[name="view-level"]:checked')?.value==='amd'?'SEMUA AMD':'SEMUA CABANG'}</strong></td>${document.querySelector('input[name="view-level"]:checked')?.value==='amd'?'':'<td class="branch-col">—</td>'}${['aktivitas','leads','prospek'].map(k=>metricTile(sums,k)).join('')}<td class="summary-col"><strong>${flags.length?flags.map(k=>k.toUpperCase()+' TURUN').join(' · '):'Tidak ada penurunan'}</strong></td>`;
+ body.appendChild(total);
+}
+const previousDetailRender=render;
+const originalTotalRefresh=refreshDetailDatesAndTotal;
+function statusMatches(o){const f=$('trend-filter').value,d=diff(o,$('sort').value);return f==='all'||(f==='down'&&d<0)||(f==='same'&&d===0)||(f==='up'&&d>0);}
+render=function(){
+ previousDetailRender();
+ const amdOnly=document.querySelector('input[name="view-level"]:checked')?.value==='amd';
+ window.exportRows=(window.exportRows||[]).filter(statusMatches);
+ const rows=window.exportRows;
+ const tbody=$('tbody');
+ const all=Array.from(tbody.querySelectorAll('tr:not(.dashboard-total)'));
+ all.forEach((tr,i)=>{if(!rows.length||i>=rows.length)tr.remove();});
+ // Render filtered rows in correct order, preserving original card formatting.
+ tbody.innerHTML=rows.map(o=>{
+   const flags=['aktivitas','leads','prospek'].filter(k=>diff(o,k)<0);
+   const level=flags.length>=2?'alert':flags.length===1?'watch':(['aktivitas','leads','prospek'].some(k=>diff(o,k)>0)?'good':'steady');
+   const label=level==='alert'?'Perlu perhatian':level==='watch'?'Ada penurunan':level==='good'?'Meningkat':'Stabil';
+   const explain=flags.length?flags.join(', ')+' turun':'Tidak ada indikator turun';
+   const name=amdOnly?`<td class="branch-col"><strong>${esc(o.amd)}</strong></td>`:`<td class="branch-col"><strong>${esc(o.amd)}</strong></td><td class="branch-col"><strong>${esc(o.cabang)}</strong></td>`;
+   return `<tr>${name}${['aktivitas','leads','prospek'].map(k=>metricTile(o,k)).join('')}<td class="summary-col"><span class="simple-status ${level}">${label}</span><div class="summary-text">${esc(explain)}</div></td></tr>`;
+ }).join('')||`<tr><td colspan="${amdOnly?5:6}" style="text-align:center;padding:22px;color:#72829b">Tidak ada data dengan status pencapaian ini.</td></tr>`;
+ if(!amdOnly){
+   document.querySelector('.details thead').innerHTML='<tr><th>AMD</th><th>Cabang</th><th>Aktivitas</th><th>Leads</th><th>Prospek</th><th>Kesimpulan</th></tr>';
+ }
+ const type=$('trend-filter').selectedOptions[0].text;
+ $('count').textContent=`${rows.length} ${amdOnly?'AMD':'cabang'} • ${type} berdasarkan ${$('sort').selectedOptions[0].text.replace('Penurunan ','')}`;
+ originalTotalRefresh();
+};
+$('trend-filter').addEventListener('change',render);
+document.querySelectorAll('input[name="view-level"]').forEach(x=>x.addEventListener('change',()=>refreshDetailDatesAndTotal()));
+</script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script><script src="config.js"></script><script src="performance-master.js"></script><script>
+// Viewer hanya membaca laporan yang sudah dipublikasikan Admin.
+const onlineClient=(window.APP_CONFIG?.supabaseUrl&&window.APP_CONFIG?.anonKey&&window.supabase)?window.supabase.createClient(window.APP_CONFIG.supabaseUrl,window.APP_CONFIG.anonKey):null;
+async function loadPerformance(){
+ try{
+  if(!onlineClient)throw Error('Konfigurasi Supabase belum lengkap.');
+  const {data,error}=await onlineClient.from('published_reports').select('payload,updated_at').eq('id',1).maybeSingle();
+  if(error)throw error;
+  if(!data)throw Error('Belum ada laporan yang dipublikasikan.');
+  const list=data.payload?.performanceDaily;
+  if(!Array.isArray(list))throw Error('Data publikasi lama belum memiliki Leads & Prospek. Admin perlu upload ulang menggunakan admin.html versi gabungan.');
+  const master=window.PERFORMANCE_MASTER||{};
+  rawDATA=list.map(r=>({...r,amd:master[r.cabang]||'BELUM TERPETAKAN'}));
+  DATA=rawDATA.map(r=>({...r}));
+  availableDates=[...new Set(rawDATA.map(r=>r.tanggal))].sort();
+  if(!availableDates.length)throw Error('Tidak ada aktivitas valid dalam laporan.');
+  dateB=availableDates.at(-1);dateA=dayAdd(dateB,-1);
+  refreshDates();refreshAMD();
+  $('amd').value='';$('cabang').value='';$('search').value='';
+  $('range-start').value=availableDates[0];$('range-end').value=availableDates.at(-1);
+  updatePeriodInputs();applyPeriod();
+  const stamp=new Date(data.updated_at).toLocaleString('id-ID',{timeZone:'Asia/Jakarta',dateStyle:'full',timeStyle:'short'});
+  $('upload-status').textContent='Terakhir dipublikasikan: '+stamp+' WIB · '+(data.payload.source||'Excel');
+  const hdr=document.querySelector('header .eyebrow');if(hdr)hdr.textContent='LIVE REPORT · '+stamp+' WIB';
+  if(data.payload.performanceColumns && (!data.payload.performanceColumns.leads||!data.payload.performanceColumns.prospek)){
+   $('period-info').textContent+=' · PERHATIAN: kolom Leads atau Prospek tidak ditemukan dalam Excel. Nilainya ditampilkan 0.';
+  }
+ }catch(e){showEmpty();$('period-info').textContent='Gagal memuat laporan: '+e.message;console.error(e);}
+}
+loadPerformance();setInterval(loadPerformance,60000);
+</script></body></html>
