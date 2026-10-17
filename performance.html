@@ -573,8 +573,46 @@ loadPerformance();setInterval(loadPerformance,60000);
  document.querySelectorAll('input[name="view-level"]').forEach(el=>el.addEventListener('change',()=>setTimeout(detailRender,0)));
  const exportBtn=document.getElementById('export');const oldExport=exportBtn.onclick;
  exportBtn.onclick=function(){if(document.querySelector('input[name="view-level"]:checked')?.value==='amd'){return oldExport?.call(this);}const shown=cols.filter(k=>document.getElementById('plan-col-'+k).checked);const rows=[['Periode','AMD','Cabang',...shown.map(k=>label[k]),'Kesimpulan'],...detailRows.map(r=>[detailPeriod().join(' s.d. '),r.amd,r.cabang,...shown.map(k=>r[k]),r.aktivitas>0?'Sudah Plan':'Belum Plan'])];const csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(';')).join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='Detail_Plan_Cabang_'+(detailPeriod().at(-1)||'periode')+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);};
- // PDF built-in uses comparison rows; disable it for plan view to avoid exporting mismatched columns.
+ // Export PDF mengikuti filter status plan, AMD, cabang, pencarian, dan checklist kolom.
  const pdf=document.getElementById('export-pdf');const oldPdf=pdf.onclick;
- pdf.onclick=function(){if(document.querySelector('input[name="view-level"]:checked')?.value!=='amd'){alert('Untuk laporan status plan, gunakan Export CSV Detail. PDF tetap tersedia pada Ringkasan AMD.');return;}return oldPdf?.call(this);};
+ pdf.onclick=async function(){
+  if(document.querySelector('input[name="view-level"]:checked')?.value==='amd')return oldPdf?.call(this);
+  if(!rawDATA.length){alert('Data belum tersedia.');return;}
+  if(!window.jspdf?.jsPDF){alert('Modul PDF belum termuat. Periksa koneksi internet.');return;}
+  detailRender();
+  const shown=cols.filter(k=>document.getElementById('plan-col-'+k).checked);
+  const days=detailPeriod();
+  const periodText=days.length?(days.length===1?dateLabel(days[0]):dateLabel(days[0])+' - '+dateLabel(days.at(-1))):'Tidak tersedia';
+  const original=this.textContent;this.disabled=true;this.textContent='Membuat PDF...';
+  try{
+   const doc=new window.jspdf.jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
+   if(typeof doc.autoTable!=='function')throw Error('Modul tabel PDF belum tersedia.');
+   const head=['AMD','Cabang',...shown.map(k=>label[k]),'Kesimpulan'];
+   const body=detailRows.map(r=>[r.amd,r.cabang,...shown.map(k=>fmt(r[k])),r.aktivitas>0?'Sudah Plan':'Belum Plan']);
+   const yes=detailRows.filter(r=>r.aktivitas>0).length;
+   const statusLabel=statusInput.selectedOptions[0]?.textContent||'Semua Cabang';
+   const filterAMD=document.getElementById('amd').value||'Semua AMD';
+   const printHeader=()=>{
+    doc.setFillColor(23,54,94);doc.rect(0,0,297,28,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(15);doc.setTextColor(255);doc.text('Detail Performa Cabang - Status Plan',13,12);
+    doc.setFont('helvetica','normal');doc.setFontSize(9);doc.text('Periode: '+periodText+'  |  Status: '+statusLabel+'  |  AMD: '+filterAMD,13,20);
+    doc.setTextColor(42,58,80);doc.setFontSize(9);
+    doc.text('Total '+detailRows.length+' cabang  |  Sudah Plan '+yes+'  |  Belum Plan '+(detailRows.length-yes),13,35);
+   };
+   printHeader();
+   if(body.length){
+    doc.autoTable({head:[head],body,startY:40,margin:{left:13,right:13,top:17,bottom:17},
+     theme:'striped',showHead:'everyPage',rowPageBreak:'avoid',
+     styles:{font:'helvetica',fontSize:9,cellPadding:3,overflow:'linebreak',valign:'middle',textColor:[38,55,78]},
+     headStyles:{fillColor:[38,91,153],textColor:255,fontStyle:'bold'},
+     alternateRowStyles:{fillColor:[245,249,253]},
+     columnStyles:{0:{cellWidth:30},1:{cellWidth:78}},
+     didParseCell:function(data){if(data.section==='body'&&data.column.index===head.length-1){const t=String(data.cell.raw);data.cell.styles.textColor=t==='Belum Plan'?[185,48,68]:[18,128,90];data.cell.styles.fontStyle='bold';}}
+    });
+   }else{doc.text('Tidak ada cabang sesuai filter.',13,48);}
+   const total=doc.internal.getNumberOfPages();for(let i=1;i<=total;i++){doc.setPage(i);doc.setDrawColor(220,230,241);doc.line(13,196,284,196);doc.setFontSize(8);doc.setTextColor(105,120,140);doc.text('Performance AMD | '+periodText,13,202);doc.text('Halaman '+i+' / '+total,284,202,{align:'right'});}
+   doc.save('Detail_Plan_Cabang_'+(days.at(-1)||'periode')+'.pdf');
+  }catch(e){console.error(e);alert('PDF gagal dibuat: '+e.message);}finally{this.disabled=false;this.textContent=original;}
+ };
 })();
 </script></body></html>
