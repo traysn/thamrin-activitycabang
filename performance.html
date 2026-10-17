@@ -534,23 +534,23 @@ loadPerformance();setInterval(loadPerformance,60000);
 (function(){
  const panel=document.querySelector('.details');const view=panel.querySelector('.view-switch');
  const controls=document.createElement('div');controls.className='detail-controls';controls.id='plan-detail-controls';
- controls.innerHTML=`<div class="dc-field"><label for="plan-detail-date">Tanggal aktivitas</label><input type="date" id="plan-detail-date"></div><div class="dc-field"><label for="plan-detail-status">Status plan</label><select id="plan-detail-status"><option value="all">Semua Cabang</option><option value="yes">Sudah Plan</option><option value="no">Belum Plan</option></select></div><div class="dc-field" style="flex:2;min-width:250px"><label>Tampilkan detail</label><div class="detail-checks"><label><input type="checkbox" id="plan-col-aktivitas" checked> Aktivitas</label><label><input type="checkbox" id="plan-col-leads" checked> Leads</label><label><input type="checkbox" id="plan-col-prospek" checked> Prospek</label></div></div>`;
+ controls.innerHTML=`<div class="dc-field"><label for="plan-detail-status">Status plan</label><select id="plan-detail-status"><option value="all">Semua Cabang</option><option value="yes">Sudah Plan</option><option value="no">Belum Plan</option></select></div><div class="dc-field" style="flex:2;min-width:250px"><label>Tampilkan detail</label><div class="detail-checks"><label><input type="checkbox" id="plan-col-aktivitas" checked> Aktivitas</label><label><input type="checkbox" id="plan-col-leads" checked> Leads</label><label><input type="checkbox" id="plan-col-prospek" checked> Prospek</label></div></div>`;
  view.insertAdjacentElement('afterend',controls);
  const summary=document.createElement('div');summary.className='detail-summary';controls.insertAdjacentElement('afterend',summary);
- const dateInput=document.getElementById('plan-detail-date'),statusInput=document.getElementById('plan-detail-status');
+ const statusInput=document.getElementById('plan-detail-status');
  const cols=['aktivitas','leads','prospek'];const label={aktivitas:'Aktivitas',leads:'Leads',prospek:'Prospek'};
- let selectedWasSet=false, detailRows=[];
+ let detailRows=[];
  const prior=render;
- function dateForDetail(){const dates=[...new Set(rawDATA.map(r=>r.tanggal))].filter(Boolean).sort();if(!dates.length)return '';dateInput.min=dates[0];dateInput.max=dates.at(-1);if(!selectedWasSet||!dateInput.value){dateInput.value=dates.at(-1);selectedWasSet=true;}return dateInput.value;}
+ function detailPeriod(){try{const periods=periodDates();return periods[1]||[];}catch(e){return [];}}
  function detailRender(){
   const isBranch=document.querySelector('input[name="view-level"]:checked')?.value!=='amd';
   controls.hidden=!isBranch;summary.hidden=!isBranch;
   if(!isBranch||!rawDATA.length)return;
-  const day=dateForDetail(),amd=document.getElementById('amd').value,branch=document.getElementById('cabang').value,search=document.getElementById('search').value.trim().toUpperCase();
+  const days=detailPeriod(),amd=document.getElementById('amd').value,branch=document.getElementById('cabang').value,search=document.getElementById('search').value.trim().toUpperCase();
   const shown=cols.filter(k=>document.getElementById('plan-col-'+k).checked);
   if(!shown.length){document.getElementById('plan-col-aktivitas').checked=true;shown.push('aktivitas');}
   const aggregated=new Map();
-  rawDATA.filter(r=>r.tanggal===day).forEach(r=>{const name=norm(r.cabang);if(!name)return;let v=aggregated.get(name);if(!v){v={aktivitas:0,leads:0,prospek:0};aggregated.set(name,v);}for(const k of cols)v[k]+=Number(r[k]||0);});
+  rawDATA.filter(r=>days.includes(r.tanggal)).forEach(r=>{const name=norm(r.cabang);if(!name)return;let v=aggregated.get(name);if(!v){v={aktivitas:0,leads:0,prospek:0};aggregated.set(name,v);}for(const k of cols)v[k]+=Number(r[k]||0);});
   const master=typeof OFFICIAL_COVERAGE_AMD==='object'?OFFICIAL_COVERAGE_AMD:MASTER;
   const names=new Set([...Object.keys(master),...aggregated.keys()]);
   detailRows=[...names].map(c=>({amd:master[c]||'BELUM TERPETAKAN',cabang:c,...(aggregated.get(c)||{aktivitas:0,leads:0,prospek:0})})).filter(r=>(!amd||r.amd===amd)&&(!branch||r.cabang===branch)&&(!search||r.cabang.includes(search))&&(statusInput.value==='all'||(statusInput.value==='yes'?r.aktivitas>0:r.aktivitas===0)));
@@ -559,17 +559,18 @@ loadPerformance();setInterval(loadPerformance,60000);
   panel.querySelector('thead').innerHTML='<tr><th>AMD</th><th>Cabang</th>'+shown.map(k=>'<th>'+label[k]+'</th>').join('')+'<th>Kesimpulan</th></tr>';
   document.getElementById('tbody').innerHTML=detailRows.map(r=>'<tr><td class="branch-col"><strong>'+esc(r.amd)+'</strong></td><td class="branch-col"><strong>'+esc(r.cabang)+'</strong></td>'+shown.map(k=>'<td class="metric-col"><strong>'+fmt(r[k])+'</strong></td>').join('')+'<td class="summary-col"><span class="simple-status '+(r.aktivitas>0?'plan-yes':'plan-no')+'">'+(r.aktivitas>0?'Sudah Plan':'Belum Plan')+'</span>'+(onlyActivity?'':'<div class="summary-text">'+(r.aktivitas>0?'Ada aktivitas valid':'Belum ada aktivitas valid')+'</div>')+'</td></tr>').join('')||'<tr><td colspan="'+(shown.length+3)+'" style="text-align:center;padding:20px">Tidak ada cabang sesuai filter.</td></tr>';
   const yes=detailRows.filter(r=>r.aktivitas>0).length;
-  summary.textContent='Tanggal '+(day?dateLabel(day):'—')+' • '+detailRows.length+' cabang • '+yes+' sudah plan • '+(detailRows.length-yes)+' belum plan';
+  const periodText=days.length?(days.length===1?dateLabel(days[0]):dateLabel(days[0])+' – '+dateLabel(days.at(-1))):'—';
+  summary.textContent='Periode '+periodText+' • '+detailRows.length+' cabang • '+yes+' sudah plan • '+(detailRows.length-yes)+' belum plan';
   document.getElementById('count').textContent=summary.textContent;
-  const explainer=document.getElementById('date-explainer');if(explainer){explainer.textContent='Detail berdasarkan aktivitas valid pada '+(day?dateLabel(day):'tanggal terpilih')+'. Sudah Plan = minimal 1 aktivitas; Belum Plan = 0 aktivitas.';}
+  const explainer=document.getElementById('date-explainer');if(explainer){explainer.textContent='Detail berdasarkan aktivitas valid pada periode terbaru/pembanding akhir ('+periodText+'). Sudah Plan = minimal 1 aktivitas; Belum Plan = 0 aktivitas.';}
  }
  render=function(){prior();detailRender();};
- [dateInput,statusInput,...cols.map(k=>document.getElementById('plan-col-'+k))].forEach(el=>el.addEventListener('change',()=>render()));
+ [statusInput,...cols.map(k=>document.getElementById('plan-col-'+k))].forEach(el=>el.addEventListener('change',()=>render()));
  document.querySelectorAll('input[name="view-level"]').forEach(el=>el.addEventListener('change',()=>setTimeout(detailRender,0)));
  const exportBtn=document.getElementById('export');const oldExport=exportBtn.onclick;
- exportBtn.onclick=function(){if(document.querySelector('input[name="view-level"]:checked')?.value==='amd'){return oldExport?.call(this);}const shown=cols.filter(k=>document.getElementById('plan-col-'+k).checked);const rows=[['Tanggal','AMD','Cabang',...shown.map(k=>label[k]),'Kesimpulan'],...detailRows.map(r=>[dateInput.value,r.amd,r.cabang,...shown.map(k=>r[k]),r.aktivitas>0?'Sudah Plan':'Belum Plan'])];const csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(';')).join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='Detail_Plan_Cabang_'+dateInput.value+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);};
+ exportBtn.onclick=function(){if(document.querySelector('input[name="view-level"]:checked')?.value==='amd'){return oldExport?.call(this);}const shown=cols.filter(k=>document.getElementById('plan-col-'+k).checked);const rows=[['Periode','AMD','Cabang',...shown.map(k=>label[k]),'Kesimpulan'],...detailRows.map(r=>[detailPeriod().join(' s.d. '),r.amd,r.cabang,...shown.map(k=>r[k]),r.aktivitas>0?'Sudah Plan':'Belum Plan'])];const csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(';')).join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='Detail_Plan_Cabang_'+(detailPeriod().at(-1)||'periode')+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);};
  // PDF built-in uses comparison rows; disable it for plan view to avoid exporting mismatched columns.
  const pdf=document.getElementById('export-pdf');const oldPdf=pdf.onclick;
- pdf.onclick=function(){if(document.querySelector('input[name="view-level"]:checked')?.value!=='amd'){alert('Untuk laporan status plan per tanggal, gunakan Export CSV Detail. PDF tetap tersedia pada Ringkasan AMD.');return;}return oldPdf?.call(this);};
+ pdf.onclick=function(){if(document.querySelector('input[name="view-level"]:checked')?.value!=='amd'){alert('Untuk laporan status plan, gunakan Export CSV Detail. PDF tetap tersedia pada Ringkasan AMD.');return;}return oldPdf?.call(this);};
 })();
 </script></body></html>
